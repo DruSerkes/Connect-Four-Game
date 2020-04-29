@@ -78,9 +78,11 @@ const placeInTable = (y, x) => {
   cell.append(piece);  
 }
 
-/** endGame: announce game end */
+/** endGame: announce game end and disable ability to play more pieces */
 const endGame = (msg) => {
   alert(msg);
+  const htmlBoard = document.getElementById('board');
+  htmlBoard.firstChild.removeEventListener('click', handleClick);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -103,7 +105,7 @@ const handleClick = (evt) => {
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    return endGame(`Player ${currPlayer} wins!`);
   }
 
   // check for tie
