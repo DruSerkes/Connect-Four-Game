@@ -10,6 +10,7 @@ const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
+const restart = document.querySelector('button'); // restart button
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -56,7 +57,7 @@ const makeHtmlBoard = () => {
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
-// based on array vals being null until filled with curPlayer id
+// cells are null until filled with curPlayer id
 const findSpotForCol = (x) => {
   for (let y = HEIGHT - 1; y >= 0; y--){
   if (board[y][x] === null) { 
@@ -69,7 +70,7 @@ const findSpotForCol = (x) => {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 const placeInTable = (y, x) => {
-  // TODO: make a div and insert into correct table cell
+  // make a div and insert into correct table cell
   const cell = document.getElementById(`${y}-${x}`);
   const piece = document.createElement('div');
   piece.classList.add('piece');                             
@@ -78,9 +79,8 @@ const placeInTable = (y, x) => {
 }
 
 /** endGame: announce game end */
-
 const endGame = (msg) => {
-  // TODO: pop up alert message
+  alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -95,9 +95,11 @@ const handleClick = (evt) => {
     return;
   }
 
-  // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
+  // add piece to HTML board
   placeInTable(y, x);
+
+  //update in memory board 
+  board[y][x] = currPlayer;
 
   // check for win
   if (checkForWin()) {
@@ -105,10 +107,17 @@ const handleClick = (evt) => {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  // check if all cells in board are filled; if so call, call endGame
+  if (board[0].every(cell => cell !== null)){
+    return endGame(`Game over - It's a tie!`);
+  }
 
-  // switch players
-  // TODO: switch currPlayer 1 <-> 2
+  // switch currPlayer logic 1 <-> 2
+  currPlayer === 1 ? currPlayer = 2: currPlayer = 1;
+
+  // switch players on screen
+  let player = document.getElementById('player');
+  player.innerText = `Current player: Player ${currPlayer}`;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -144,6 +153,11 @@ const checkForWin = () => {
     }
   }
 }
+
+// restart button
+restart.addEventListener('click', evt => {
+  location.reload();
+})
 
 makeBoard();
 makeHtmlBoard();
