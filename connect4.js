@@ -127,30 +127,29 @@ const handleClick = (evt) => {
 const checkForWin = () => {
   const _win = (cells) => {
     // Check four cells to see if they're all color of current player
-    //  - cells: list of four (y, x) cells
+    //  - cells: list of four (y, x) cells - array of arrays 
     //  - returns true if all are legal coordinates & all match currPlayer
 
     return cells.every(
       ([y, x]) =>
-        y >= 0 &&
-        y < HEIGHT &&
-        x >= 0 &&
+        y >= 0 &&           // checks if y coordinate is within bounds of the game
+        y < HEIGHT &&         
+        x >= 0 &&           // checks if x coordinate is within bounds of the game
         x < WIDTH &&
-        board[y][x] === currPlayer
+        board[y][x] === currPlayer    // checks if the value at the given cell is equal to the current player val
     );
   }
 
-  // TODO: read and understand this code. Add comments to help you.
 
-  for (let y = 0; y < HEIGHT; y++) {
-    for (let x = 0; x < WIDTH; x++) {
-      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
-      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+  for (let y = 0; y < HEIGHT; y++) {                                    // iterate over every row top to bottom
+    for (let x = 0; x < WIDTH; x++) {                                   // iterate over every cell in that row left to right
+      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];         // horiz is an array of 4 arrays with y, x vals from the given coordinates, to the next 3 across the row  
+      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];          // vert is an array of of 4 arrays with y, x vals from the given coordinates to the next 3 down the board
+      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];  //diagDR = array of 4 arrays with y, x vals from given cell to the next 3 following a pattern of 1 space to the right, 1 down
+      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];  //diag DL = array of 4 arrays with y, x vals from given cell and the next 3 following a pattern of 1 space left, 1 down 
 
-      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
-        return true;
+      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {  // check if any of the 4 currently given arrays of arrays evaluates to true when passed to _win() 
+        return true;                                                    // checkForWin returns true if any of them do 
       }
     }
   }
