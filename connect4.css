@@ -1,23 +1,18 @@
 body {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background: linear-gradient(-45deg, , #f36ea1, #23d5ab); */
   background: linear-gradient(-45deg, rgb(240, 107, 66), #ee9c83, #23a6d5, #23d5ab);
-  animation: gradient 25s ease infinite;
+  background-size: 120% 120%;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 header {
   width: 100%;
   text-align: center;
-  /* background-color: lightblue; */
   color: crimson;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
 }
 
 header h1{
@@ -36,8 +31,6 @@ header p{
 button {
   width: 17%;
   height: 5%;
-  position: absolute;
-  bottom: 15%;
   left: auto;
   border-radius: 6px;
   border: 1px solid black;
@@ -54,9 +47,7 @@ button:hover {
 
 /* game board table */
 #game {
-  position: absolute;
-  top: 26%;
-  left: auto;
+  margin: 25px auto;
 }
 
 #board td {
@@ -68,14 +59,12 @@ button:hover {
 /* pieces are div within game table cells: draw as colored circles */
 
 .piece {
-  /* TODO: make into circles */
   margin: 5px;
   width: 80%;
   height: 80%;
   border-radius: 20px;
 }
 
-/* TODO: make pieces red/blue,  depending on player 1/2 piece */
 .p1{
   background: red;
 }
