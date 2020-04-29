@@ -70,11 +70,11 @@ const findSpotForCol = (x) => {
 
 const placeInTable = (y, x) => {
   // TODO: make a div and insert into correct table cell
-  const htmlBoard = document.getElementById('board');
+  const cell = document.getElementById(`${y}-${x}`);
   const piece = document.createElement('div');
-  piece.classList.add('piece');                             // Wednesday: START HERE********
+  piece.classList.add('piece');                             
   piece.classList.add(`p${currPlayer}`);
-  htmlBoard[y][x].append(piece); // something is wrong with this ... 
+  cell.append(piece);  
 }
 
 /** endGame: announce game end */
