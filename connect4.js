@@ -126,13 +126,17 @@ const handleClick = (evt) => {
   }
 
   // check for tie
-  // check if all cells in board are filled; if so call, call endGame
   if (checkForTie()){
     return endGame(`Game over - It's a tie!`); 
   }
 
-  // switch currPlayer logic 1 <-> 2
-  currPlayer === 1 ? currPlayer = 2: currPlayer = 1;        // write switchPlayer function 
+  //switch players 
+  switchPlayer();
+}
+
+//switchPlayer: switch player number 1 <--> 2 and update DOM
+const switchPlayer = () =>{
+  currPlayer === 1 ? currPlayer = 2: currPlayer = 1; 
 
   // switch players on screen
   let player = document.getElementById('player');
