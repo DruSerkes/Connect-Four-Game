@@ -26,7 +26,10 @@ const makeBoard = () => {
     };
 }
 
-
+//makeId: takes y,x and outputs a string for cell ID
+const getId = (y, x) =>{
+  return `${y}-${x}`;
+}
 
 //createTopRow: create row of clickable column tops
 
@@ -53,7 +56,7 @@ const createBoard = () => {
     const row = document.createElement("tr");
     for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
-      cell.setAttribute("id", `${y}-${x}`);                 //write function getId that returns this string 
+      cell.setAttribute("id", getId(y, x));                 //write function getId that returns this string 
       row.append(cell);
     }
     htmlBoard.append(row);
@@ -83,7 +86,7 @@ const findSpotForCol = (x) => {
 
 const placeInTable = (y, x) => {
   // make a div and insert into correct table cell
-  const cell = document.getElementById(`${y}-${x}`);
+  const cell = document.getElementById(getId(y, x));
   const piece = document.createElement('div');
   piece.classList.add('piece');                             
   piece.classList.add(`p${currPlayer}`);
@@ -94,7 +97,7 @@ const placeInTable = (y, x) => {
 const endGame = (msg) => {
   setTimeout(function(){
     alert(msg);
-  }, 500);
+  }, 600);
   const htmlBoard = document.getElementById('board');
   htmlBoard.firstChild.removeEventListener('click', handleClick);
 }
