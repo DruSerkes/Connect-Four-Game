@@ -164,15 +164,17 @@ const checkForWin = () => {
 
 
   for (let y = 0; y < HEIGHT; y++) {                                    // iterate over every row top to bottom
-    for (let x = 0; x < WIDTH; x++) {  // TODO: wrap this logic in if statement checking if board[y][x] !== null                                    // iterate over every cell in that row left to right
-      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];         // horiz is an array of 4 arrays with y, x vals from the given coordinates, to the next 3 across the row  
-      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];          // vert is an array of of 4 arrays with y, x vals from the given coordinates to the next 3 down the board
-      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];  //diagDR = array of 4 arrays with y, x vals from given cell to the next 3 following a pattern of 1 space to the right, 1 down
-      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];  //diag DL = array of 4 arrays with y, x vals from given cell and the next 3 following a pattern of 1 space left, 1 down 
+    for (let x = 0; x < WIDTH; x++) {                                    // iterate over every cell in that row left to right
+      if (board[y][x] !== null){                                        // if the space isn't empty... 
+        let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];         // horiz is an array of 4 arrays with y, x vals from the given coordinates, to the next 3 across the row  
+        let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];          // vert is an array of of 4 arrays with y, x vals from the given coordinates to the next 3 down the board
+        let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];  //diagDR = array of 4 arrays with y, x vals from given cell to the next 3 following a pattern of 1 space to the right, 1 down
+        let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];  //diag DL = array of 4 arrays with y, x vals from given cell and the next 3 following a pattern of 1 space left, 1 down 
 
-      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {  // check if any of the 4 currently given arrays of arrays evaluates to true when passed to _win() 
-        return true;                                                    // checkForWin returns true if any of them do 
-      }
+        if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {  // check if any of the 4 currently given arrays of arrays evaluates to true when passed to _win() 
+          return true;                                                    // checkForWin returns true if any of them do 
+        }
+      }                                      
     }
   }
 }
