@@ -9,7 +9,7 @@ const WIDTH = 7;
 const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
-const board = []; // array of rows, each row is array of cells  (board[y][x])
+let board = []; // array of rows, each row is array of cells  (board[y][x])
 const restart = document.querySelector('button'); // restart button
 
 /** makeBoard: create in-JS board structure:
@@ -160,8 +160,6 @@ const checkForWin = () => {
         board[y][x] === currPlayer    // checks if the value at the given cell is equal to the current player val
     );
   }
-  // search for how to put TODO's in vscode 
-
 
   for (let y = 0; y < HEIGHT; y++) {                                    // iterate over every row top to bottom
     for (let x = 0; x < WIDTH; x++) {                                    // iterate over every cell in that row left to right
@@ -186,7 +184,24 @@ const checkForTie = () => {
 
 // restart button
 restart.addEventListener('click', evt => {
-  location.reload();      // reload loses context - TODO: reset board/html board to keep variables (ie player wins)
+  //reset memory board 
+  board = [];
+
+  //reset DOM board 
+  const htmlBoard = document.getElementById('board');
+  htmlBoard.innerText = '';
+
+  //reset currPlayer
+  currPlayer = 1;
+
+  //update DOM Current Player
+  let player = document.getElementById('player');
+  player.innerText = `Current player: Player ${currPlayer}`;
+  
+  //make the game again 
+  makeBoard();
+  makeHtmlBoard();
+  // location.reload();      //works but it reloads the whole page, losing track of any variables (ie player wins)
 })
 
 makeBoard();
