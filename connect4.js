@@ -127,8 +127,8 @@ const handleClick = (evt) => {
 
   // check for tie
   // check if all cells in board are filled; if so call, call endGame
-  if (board[0].every(cell => cell !== null)){
-    return endGame(`Game over - It's a tie!`);        // write checkForTie function 
+  if (checkForTie()){
+    return endGame(`Game over - It's a tie!`); 
   }
 
   // switch currPlayer logic 1 <-> 2
@@ -171,6 +171,11 @@ const checkForWin = () => {
       }
     }
   }
+}
+
+//checkForTie: check if the top row is full 
+const checkForTie = () => {
+  return board[0].every(cell => cell !== null);
 }
 
 // restart button
