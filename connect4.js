@@ -26,34 +26,46 @@ const makeBoard = () => {
     };
 }
 
-/** makeHtmlBoard: make HTML table and row of column tops. */
 
-const makeHtmlBoard = () => {
-  // Get "htmlBoard" variable from the item in HTML w/ID of "board"
+
+//createTopRow: create row of clickable column tops
+
+const createTopRow = () => {
   const htmlBoard = document.getElementById('board');
 
-  // Create top row & cells and append to htmlBoard 
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
   for (let x = 0; x < WIDTH; x++) {
-    let headCell = document.createElement("td");            //  function createTopRow
+    let headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
   htmlBoard.append(top);
+}
 
-  // Create rows and cells (the board) and append them to htmlBoard
+//createBoard: create rows and cells and append them to htmlBoard
+const createBoard = () => {
+  const htmlBoard = document.getElementById('board');
+  
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
-    for (let x = 0; x < WIDTH; x++) {                     // function createBoard 
+    for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);                 //write function getId that returns this string 
-      row.append(cell);         // call functions inside makeHtmlBoard 
+      row.append(cell);
     }
     htmlBoard.append(row);
   }
+
+}
+
+/** makeHtmlBoard: make HTML table and row of column tops. */
+
+const makeHtmlBoard = () => {
+  createTopRow();
+  createBoard();
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
