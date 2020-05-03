@@ -18,12 +18,12 @@ const restart = document.querySelector('button'); // restart button
 
 const makeBoard = () => {
   for (let y = 0; y < HEIGHT; y++){
-  let row = [];
-  for (let x = 0; x < WIDTH; x++){
-      row.push(null);
-  }
-  board.push(row);
-  };
+    let row = [];
+    for (let x = 0; x < WIDTH; x++){
+        row.push(null);
+    }
+    board.push(row);
+    };
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -38,7 +38,7 @@ const makeHtmlBoard = () => {
   top.addEventListener("click", handleClick);
 
   for (let x = 0; x < WIDTH; x++) {
-    let headCell = document.createElement("td");
+    let headCell = document.createElement("td");            //  function createTopRow
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
@@ -47,10 +47,10 @@ const makeHtmlBoard = () => {
   // Create rows and cells (the board) and append them to htmlBoard
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
-    for (let x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {                     // function createBoard 
       const cell = document.createElement("td");
-      cell.setAttribute("id", `${y}-${x}`);
-      row.append(cell);
+      cell.setAttribute("id", `${y}-${x}`);                 //write function getId that returns this string 
+      row.append(cell);         // call functions inside makeHtmlBoard 
     }
     htmlBoard.append(row);
   }
@@ -80,7 +80,9 @@ const placeInTable = (y, x) => {
 
 /** endGame: announce game end and disable ability to play more pieces */
 const endGame = (msg) => {
-  alert(msg);
+  setTimeout(function(){
+    alert(msg);
+  }, 500);
   const htmlBoard = document.getElementById('board');
   htmlBoard.firstChild.removeEventListener('click', handleClick);
 }
@@ -111,11 +113,11 @@ const handleClick = (evt) => {
   // check for tie
   // check if all cells in board are filled; if so call, call endGame
   if (board[0].every(cell => cell !== null)){
-    return endGame(`Game over - It's a tie!`);
+    return endGame(`Game over - It's a tie!`);        // write checkForTie function 
   }
 
   // switch currPlayer logic 1 <-> 2
-  currPlayer === 1 ? currPlayer = 2: currPlayer = 1;
+  currPlayer === 1 ? currPlayer = 2: currPlayer = 1;        // write switchPlayer function 
 
   // switch players on screen
   let player = document.getElementById('player');
@@ -139,10 +141,11 @@ const checkForWin = () => {
         board[y][x] === currPlayer    // checks if the value at the given cell is equal to the current player val
     );
   }
+  // search for how to put TODO's in vscode 
 
 
   for (let y = 0; y < HEIGHT; y++) {                                    // iterate over every row top to bottom
-    for (let x = 0; x < WIDTH; x++) {                                   // iterate over every cell in that row left to right
+    for (let x = 0; x < WIDTH; x++) {  // TODO: wrap this logic in if statement checking if board[y][x] !== null                                    // iterate over every cell in that row left to right
       let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];         // horiz is an array of 4 arrays with y, x vals from the given coordinates, to the next 3 across the row  
       let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];          // vert is an array of of 4 arrays with y, x vals from the given coordinates to the next 3 down the board
       let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];  //diagDR = array of 4 arrays with y, x vals from given cell to the next 3 following a pattern of 1 space to the right, 1 down
@@ -157,7 +160,7 @@ const checkForWin = () => {
 
 // restart button
 restart.addEventListener('click', evt => {
-  location.reload();
+  location.reload();      // reload loses context - TODO: reset board/html board to keep variables (ie player wins)
 })
 
 makeBoard();
